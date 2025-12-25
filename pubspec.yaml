@@ -64,6 +64,8 @@ flutter:
   assets:
     - assets/tiles/
     - assets/audio/
+    - assets/tileset/
+    - assets/tileset/free-tileset-d-cave/
     - assets/images/Terrain/
     - assets/images/Background/
     - assets/images/Items/Fruits/
