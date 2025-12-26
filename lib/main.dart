@@ -1,7 +1,3 @@
-// Kode lengkap untuk main.dart yang diperbarui
-// Ini termasuk menu dengan background gambar, tombol dari aset, pemilihan karakter dengan preview sprite,
-// dan dialog pengaturan untuk toggle sounds/controls.
-
 import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +16,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const MainMenu(),
+      home: MainMenu(),
     );
   }
 }
@@ -35,141 +31,193 @@ class MainMenu extends StatefulWidget {
 }
 
 class _MainMenuState extends State<MainMenu> {
-  String selectedCharacter = 'Mask Dude'; // Default
-  bool showControls = false; // Default dari game
-  bool playSounds = true; // Default dari game
-  double soundVolume = 1.0; // Default dari game
+  String selectedCharacter = 'Mask Dude';
+  bool showControls = false;
+  bool playSounds = true;
+  double soundVolume = 1.0;
 
   final List<Map<String, String>> characters = [
     {
       'name': 'Mask Dude',
-      'preview': 'assets/images/Main Characters/Mask Dude/Idle (32x32).png',
+      'preview': 'assets/images/Main Characters/Mask Dude/preview.png',
     },
     {
       'name': 'Ninja Frog',
-      'preview': 'assets/images/Main Characters/Ninja Frog/Idle (32x32).png',
+      'preview': 'assets/images/Main Characters/Ninja Frog/preview.png',
     },
     {
       'name': 'Pink Man',
-      'preview': 'assets/images/Main Characters/Pink Man/Idle (32x32).png',
+      'preview': 'assets/images/Main Characters/Pink Man/preview.png',
     },
     {
       'name': 'Virtual Guy',
-      'preview': 'assets/images/Main Characters/Virtual Guy/Idle (32x32).png',
+      'preview': 'assets/images/Main Characters/Virtual Guy/preview.png',
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-              'assets/images/Background/Blue.png',
-            ), // Gunakan background dari aset (ganti jika ingin yang lain seperti Purple.png)
-            fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          // ===== BACKGROUND STATIS FULL SCREEN =====
+          Positioned.fill(
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/Cave/background.png'),
+                  fit: BoxFit.cover, // FULL layar, tidak terputus
+                ),
+              ),
+            ),
           ),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+
+          // ===== OPTIONAL OVERLAY (biar teks jelas) =====
+          Positioned.fill(
+            child: Container(color: Colors.black.withOpacity(0.3)),
+          ),
+
+          // ===== KONTEN UTAMA =====
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Tombol Play
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GameWidget(
-                        game: kDebugMode
-                            ? PixelAdventure(character: selectedCharacter)
-                            : PixelAdventure(character: selectedCharacter),
-                      ),
-                    ),
-                  );
-                },
-                child: Image.asset(
-                  'assets/images/Menu/Buttons/Play.png',
-                  width: 150, // Ukuran tombol, sesuaikan
-                  height: 150,
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // Tombol Pengaturan
-              GestureDetector(
-                onTap: () => _showSettingsDialog(context),
-                child: Image.asset(
-                  'assets/images/Menu/Buttons/Settings.png',
-                  width: 100,
-                  height: 100,
-                ),
-              ),
-              const SizedBox(height: 40),
-
-              // Pemilihan Karakter
-              const Text(
-                'Pilih Karakter:',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 150,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: characters.length,
-                  itemBuilder: (context, index) {
-                    final char = characters[index];
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedCharacter = char['name']!;
-                        });
+              // Tombol kiri
+              Padding(
+                padding: const EdgeInsets.only(left: 60),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => GameWidget(
+                              game: kDebugMode
+                                  ? PixelAdventure(character: selectedCharacter)
+                                  : PixelAdventure(
+                                      character: selectedCharacter,
+                                    ),
+                            ),
+                          ),
+                        );
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: selectedCharacter == char['name']
-                                      ? Colors.yellow
-                                      : Colors.transparent,
-                                  width: 3,
-                                ),
-                              ),
-                              child: Image.asset(
-                                char['preview']!,
-                                width: 100,
-                                height: 100,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              char['name']!,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: selectedCharacter == char['name']
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                              ),
-                            ),
-                          ],
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.brown[300]!.withOpacity(0.5),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 40,
+                          vertical: 20,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                    );
-                  },
+                      child: const Text(
+                        'Mulai',
+                        style: TextStyle(
+                          fontSize: 32,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    TextButton(
+                      onPressed: () => _showSettingsDialog(context),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.brown[300]!.withOpacity(0.5),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 40,
+                          vertical: 20,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text(
+                        'Pengaturan',
+                        style: TextStyle(
+                          fontSize: 32,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // ===== PILIH KARAKTER =====
+              Expanded(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Pilih Karakter:',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: characters.map((char) {
+                          final isSelected = selectedCharacter == char['name'];
+
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedCharacter = char['name']!;
+                              });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: isSelected
+                                            ? Colors.yellow
+                                            : Colors.transparent,
+                                        width: 3,
+                                      ),
+                                    ),
+                                    child: Image.asset(
+                                      char['preview']!,
+                                      width: 90,
+                                      height: 90,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    char['name']!,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: isSelected
+                                          ? FontWeight.bold
+                                          : FontWeight.normal,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }
@@ -177,11 +225,11 @@ class _MainMenuState extends State<MainMenu> {
   void _showSettingsDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) {
+      builder: (_) {
         return AlertDialog(
           title: const Text('Pengaturan'),
           content: StatefulBuilder(
-            builder: (context, setDialogState) {
+            builder: (_, setDialogState) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -190,9 +238,7 @@ class _MainMenuState extends State<MainMenu> {
                     value: showControls,
                     onChanged: (value) {
                       setDialogState(() => showControls = value);
-                      setState(
-                        () => showControls = value,
-                      ); // Update state utama
+                      setState(() => showControls = value);
                     },
                   ),
                   SwitchListTile(
@@ -206,8 +252,8 @@ class _MainMenuState extends State<MainMenu> {
                   const Text('Volume Suara'),
                   Slider(
                     value: soundVolume,
-                    min: 0.0,
-                    max: 1.0,
+                    min: 0,
+                    max: 1,
                     onChanged: (value) {
                       setDialogState(() => soundVolume = value);
                       setState(() => soundVolume = value);
