@@ -7,6 +7,7 @@ import 'package:pixel_adventure/components/checkpoint.dart';
 import 'package:pixel_adventure/components/chicken.dart';
 import 'package:pixel_adventure/components/collision_block.dart';
 import 'package:pixel_adventure/components/fruit.dart';
+import 'package:pixel_adventure/components/play_button.dart';
 import 'package:pixel_adventure/components/player.dart';
 import 'package:pixel_adventure/components/saw.dart';
 import 'package:pixel_adventure/pixel_adventure.dart';
@@ -100,6 +101,13 @@ class Level extends World with HasGameReference<PixelAdventure> {
               offPos: offPos,
             );
             add(chicken);
+            break;
+          case 'Button':
+            final playButton = PlayButton(
+              position: Vector2(spawnPoint.x, spawnPoint.y),
+              size: Vector2(spawnPoint.width, spawnPoint.height),
+            );
+            add(playButton);
             break;
           default:
         }
