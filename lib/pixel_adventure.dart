@@ -5,6 +5,7 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:pixel_adventure/components/jump_button.dart';
+import 'package:pixel_adventure/components/pause_menu_overlay.dart';
 import 'package:pixel_adventure/components/player.dart';
 import 'package:pixel_adventure/components/level.dart';
 
@@ -26,11 +27,15 @@ class PixelAdventure extends FlameGame
   bool showControls = false;
   bool playSounds = true;
   double soundVolume = 1.0;
-  List<String> levelNames = ['level1', 'Level-02'];
+  List<String> levelNames = ['Level-01', 'Level-02'];
   int currentLevelIndex = 0;
 
   @override
   FutureOr<void> onLoad() async {
+    overlays.addEntry(
+      'pauseMenu',
+      (context, game) => PauseMenuOverlay(game: game as PixelAdventure),
+    );
     // load all images into cache
     await images.loadAllImages();
     _loadLevel();

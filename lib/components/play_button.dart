@@ -9,12 +9,16 @@ class PlayButton extends SpriteComponent
 
   @override
   Future<void> onLoad() async {
-    sprite = Sprite(game.images.fromCache('Menu/Buttons/Play.png'));
+    sprite = Sprite(
+      game.images.fromCache('Menu/Buttons/Play.png'),
+    ); // Ganti gambar kalo perlu, misal jadi pause icon
     anchor = Anchor.center;
   }
 
   @override
   void onTapDown(TapDownEvent event) {
-    game.showPausePopup();
+    super.onTapDown(event);
+    game.pauseEngine(); // Pause game dulu
+    game.overlays.add('pauseMenu'); // Tampilin popup overlay
   }
 }
