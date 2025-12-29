@@ -4,8 +4,8 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:pixel_adventure/components/controls_overlay.dart';
 import 'package:pixel_adventure/components/game_end_overlay.dart';
-import 'package:pixel_adventure/components/jump_button.dart';
 import 'package:pixel_adventure/components/pause_menu_overlay.dart';
 import 'package:pixel_adventure/components/player.dart';
 import 'package:pixel_adventure/components/level.dart';
@@ -28,7 +28,6 @@ class PixelAdventure extends FlameGame
 
   late CameraComponent cam;
   final Player player;
-  late JoystickComponent joystick;
   bool showControls = false;
   bool playSounds = true;
   double soundVolume = 1.0;
@@ -52,64 +51,31 @@ class PixelAdventure extends FlameGame
       (context, game) => PauseMenuOverlay(game: game as PixelAdventure),
     );
     overlays.addEntry(
-      // Tambah ini
       'gameEnd',
       (context, game) => GameEndOverlay(game: game as PixelAdventure),
     );
-
+    overlays.addEntry(
+      'controls',
+      (context, game) => ControlsOverlay(game: game as PixelAdventure),
+    );
     // load all images into cache
     await images.loadAllImages();
     loadLevel();
     if (showControls) {
-      addJoyStick();
-      add(JumpButton());
+      overlays.add('controls'); // Aktifkan overlay
     }
     return super.onLoad();
   }
 
   @override
   void update(double dt) {
-    if (showControls) {
-      updateJoystick();
-    }
     super.update(dt);
-  }
-
-  void addJoyStick() {
-    joystick = JoystickComponent(
-      priority: 10,
-      knob: SpriteComponent(sprite: Sprite(images.fromCache('HUD/Knob.png'))),
-      background: SpriteComponent(
-        sprite: Sprite(images.fromCache('HUD/Joystick.png')),
-      ),
-      margin: const EdgeInsets.only(left: 32, bottom: 32),
-    );
-    add(joystick);
-  }
-
-  void updateJoystick() {
-    switch (joystick.direction) {
-      case JoystickDirection.left:
-      case JoystickDirection.upLeft:
-      case JoystickDirection.downLeft:
-        player.horizontalMovement = -1;
-        break;
-      case JoystickDirection.right:
-      case JoystickDirection.upRight:
-      case JoystickDirection.downRight:
-        player.horizontalMovement = 1;
-        break;
-      default:
-        player.horizontalMovement = 0;
-        break;
-    }
   }
 
   void loadNextLevel() {
     removeWhere(
       (component) => component is Level || component is CameraComponent,
     );
-
     if (currentLevelIndex < levelNames.length - 1) {
       currentLevelIndex++;
       loadLevel();
@@ -126,14 +92,12 @@ class PixelAdventure extends FlameGame
         player: player,
         levelName: levelNames[currentLevelIndex],
       );
-
       cam = CameraComponent.withFixedResolution(
         world: world,
         width: 640,
         height: 360,
       );
       cam.viewfinder.anchor = Anchor.topLeft;
-
       addAll([cam, world]);
     });
   }

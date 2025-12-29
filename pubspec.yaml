@@ -37,6 +37,7 @@ dependencies:
   flame: ^1.8.2
   flame_tiled: ^3.0.9
   flame_audio: ^2.11.12
+  flutter_joystick: ^0.2.2
 
 dev_dependencies:
   flutter_test:
