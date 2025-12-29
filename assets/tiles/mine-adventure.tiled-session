@@ -1,38 +1,203 @@
 {
-    "activeFile": "Level-01.tmx",
+    "activeFile": "level-03.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
-        "Level-01.tmx": {
-            "scale": 2,
-            "selectedLayer": 1,
-            "viewCenter": {
-                "x": 520.25,
-                "y": 56
-            }
+        "/home/akmal/Downloads/tiles/Tileset_Cave.tsx": {
+            "scaleInDock": 1
         },
-        "Level-02.tmx": {
+        "/home/akmal/Downloads/tiles/background.tsx": {
+            "scaleInDock": 1
+        },
+        "/home/akmal/Downloads/tiles/level-09.tmx": {
             "scale": 1.298828125,
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 319.9037593984963,
-                "y": 184.01203007518797
+                "y": 183.62706766917296
+            }
+        },
+        "/home/akmal/Downloads/tiles/tileset-cave.tsx": {
+            "scaleInDock": 1
+        },
+        "Level-01.tmx": {
+            "expandedObjectLayers": [
+                2,
+                3
+            ],
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 568.3333333333333,
+                "y": 56
+            }
+        },
+        "Level-02.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 310,
+                "y": 302.66666666666663
+            }
+        },
+        "Level-04.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 150.5,
+                "y": 205.66666666666666
             }
         },
         "Pixel Adventure.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "Tileset_Cave.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "background.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "level-01.tmx": {
+            "expandedObjectLayers": [
+                4,
+                3
+            ],
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 320.3333333333333,
+                "y": 166.66666666666666
+            }
+        },
+        "level-02.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 584.3333333333333,
+                "y": 56
+            }
+        },
+        "level-03.tmx": {
+            "expandedObjectLayers": [
+                4,
+                3
+            ],
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 584.3333333333333,
+                "y": 146
+            }
+        },
+        "level-04.tmx": {
+            "expandedObjectLayers": [
+                4,
+                3
+            ],
+            "scale": 0.75,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 263.3333333333333,
+                "y": 305.3333333333333
+            }
+        },
+        "level-05.tmx": {
+            "expandedObjectLayers": [
+                4,
+                3
+            ],
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 234.5,
+                "y": 244
+            }
+        },
+        "level-06.tmx": {
+            "expandedObjectLayers": [
+                4,
+                3
+            ],
+            "scale": 0.75,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 303.3333333333333,
+                "y": -82.66666666666663
+            }
+        },
+        "level-07.tmx": {
+            "expandedObjectLayers": [
+                4,
+                3
+            ],
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 301,
+                "y": 273.3333333333333
+            }
+        },
+        "level-08.tmx": {
+            "expandedObjectLayers": [
+                4,
+                3
+            ],
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 309,
+                "y": 292
+            }
+        },
+        "level-09.tmx": {
+            "expandedObjectLayers": [
+                4,
+                3
+            ],
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 531.6666666666667,
+                "y": 216
+            }
+        },
+        "tileset-cave.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 1,
             "scaleInEditor": 1
         }
     },
+    "last.externalTilesetPath": "/home/akmal/Code/pixel_adventure/assets/tiles",
+    "last.imagePath": "/home/akmal/Code/pixel_adventure/assets/images/Cave",
     "openFiles": [
-        "Level-02.tmx",
-        "Level-01.tmx"
+        "level-01.tmx",
+        "Level-01.tmx",
+        "level-02.tmx",
+        "level-03.tmx"
     ],
     "project": "mine-adventure.tiled-project",
     "recentFiles": [
+        "level-01.tmx",
         "Level-02.tmx",
+        "level-09.tmx",
+        "level-08.tmx",
+        "level-07.tmx",
+        "level-06.tmx",
+        "level-05.tmx",
+        "level-04.tmx",
+        "level-03.tmx",
+        "level-02.tmx",
         "Level-01.tmx",
-        "Pixel Adventure.tsx"
-    ]
+        "tileset-cave.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
 }

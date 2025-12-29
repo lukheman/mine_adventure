@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:pixel_adventure/main.dart';
-import 'package:pixel_adventure/pixel_adventure.dart'; // Import game lu
+import 'package:pixel_adventure/components/main_menu_screen.dart';
+import 'package:pixel_adventure/pixel_adventure.dart'; // Import game mu
 
 class PauseMenuOverlay extends StatelessWidget {
   final PixelAdventure game;
-
   const PauseMenuOverlay({super.key, required this.game});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: 300, // Ukuran popup, sesuaikan
+        width: 300, // Ukuran popup, sesuaikan kalo mau
         height: 200,
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(0.8), // Background semi-transparan
@@ -36,10 +35,10 @@ class PauseMenuOverlay extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 game.overlays.remove('pauseMenu'); // Hilangin popup
-                // Balik ke main menu pake Navigator
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MainMenu()),
+                // Balik ke main menu pake Navigator, pushAndRemoveUntil biar clean stack
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (_) => const MainMenuScreen()),
+                  (route) => false,
                 );
               },
               child: const Text('Back to Main Menu'),

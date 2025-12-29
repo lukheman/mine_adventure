@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:pixel_adventure/components/game_end_overlay.dart';
 import 'package:pixel_adventure/components/jump_button.dart';
 import 'package:pixel_adventure/components/pause_menu_overlay.dart';
 import 'package:pixel_adventure/components/player.dart';
@@ -15,8 +16,12 @@ class PixelAdventure extends FlameGame
         DragCallbacks,
         HasCollisionDetection,
         TapCallbacks {
-  PixelAdventure({String character = 'Mask Dude'})
-    : player = Player(character: character);
+  PixelAdventure({
+    String character = 'Mask Dude',
+    this.showControls = false,
+    this.playSounds = true,
+    this.soundVolume = 1.0,
+  }) : player = Player(character: character);
 
   @override
   Color backgroundColor() => const Color(0xFF211F30);
@@ -27,7 +32,7 @@ class PixelAdventure extends FlameGame
   bool showControls = false;
   bool playSounds = true;
   double soundVolume = 1.0;
-  List<String> levelNames = ['Level-01', 'Level-02'];
+  List<String> levelNames = ['Level-08', 'Level-09'];
   int currentLevelIndex = 0;
 
   @override
@@ -36,9 +41,15 @@ class PixelAdventure extends FlameGame
       'pauseMenu',
       (context, game) => PauseMenuOverlay(game: game as PixelAdventure),
     );
+    overlays.addEntry(
+      // Tambah ini
+      'gameEnd',
+      (context, game) => GameEndOverlay(game: game as PixelAdventure),
+    );
+
     // load all images into cache
     await images.loadAllImages();
-    _loadLevel();
+    loadLevel();
     if (showControls) {
       addJoyStick();
       add(JumpButton());
@@ -91,14 +102,15 @@ class PixelAdventure extends FlameGame
 
     if (currentLevelIndex < levelNames.length - 1) {
       currentLevelIndex++;
+      loadLevel();
     } else {
-      currentLevelIndex = 0;
+      // Game selesai → tampilkan overlay
+      overlays.add('gameEnd');
+      pauseEngine();
     }
-
-    _loadLevel();
   }
 
-  void _loadLevel() {
+  void loadLevel() {
     Future.delayed(const Duration(seconds: 1), () {
       Level world = Level(
         player: player,
